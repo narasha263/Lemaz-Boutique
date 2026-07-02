@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lemaz Boutique — Curated Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --blue: #2152cc;
+  --blue-dark: #1640a8;
+  --blue-light: #e8eefa;
+  --cream: #fafafa;
+  --white: #ffffff;
+  --dark: #1a1a2e;
+  --gray: #6c6c80;
+  --light-gray: #f4f4f8;
+  --border: #e0e4f0;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Raleway', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+
+.top-bar { background: var(--blue); color: white; text-align: center; padding: .5rem; font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 600; }
+
+nav { background: var(--white); border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(33,82,204,0.08); }
+.nav-inner { max-width: 1300px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 75px; }
+.logo { text-decoration: none; display: flex; flex-direction: column; line-height: 1; }
+.logo-main { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--dark); letter-spacing: .05em; }
+.logo-main span { color: var(--blue); }
+.logo-sub { font-size: .58rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gray); font-weight: 600; }
+.nav-links { display: flex; list-style: none; gap: 0; }
+.nav-links li a { display: block; padding: .5rem 1.3rem; text-decoration: none; font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--dark); transition: color .25s, background .25s; border-radius: 4px; }
+.nav-links li a:hover, .nav-links li a.active { color: var(--blue); background: var(--blue-light); }
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
+.nav-btn { background: var(--blue); color: white; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .65rem 1.5rem; border-radius: 4px; text-decoration: none; transition: background .25s, transform .2s; }
+.nav-btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.burger span { width: 25px; height: 2px; background: var(--dark); border-radius: 2px; display: block; transition: all .3s; }
+
+.hero { background: linear-gradient(120deg, var(--dark) 55%, var(--blue) 100%); min-height: 88vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; width: 600px; height: 600px; border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; top: -150px; right: -100px; }
+.hero-content { max-width: 1300px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%; position: relative; z-index: 2; }
+.hero-text { animation: slideLeft .8s both; }
+.hero-badge { display: inline-flex; align-items: center; gap: .6rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); font-size: .7rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; padding: .4rem 1rem; border-radius: 100px; margin-bottom: 2rem; }
+.hero-badge .dot { width: 6px; height: 6px; background: #5b82e0; border-radius: 50%; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 700; color: white; line-height: 1.1; margin-bottom: 1.5rem; }
+.hero h1 em { font-style: italic; color: #7fa3f5; }
+.hero-desc { color: rgba(255,255,255,0.6); font-size: 1rem; line-height: 1.85; font-weight: 300; margin-bottom: 2.5rem; max-width: 440px; }
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-white { background: white; color: var(--blue); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .9rem 2rem; border-radius: 4px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.btn-border { background: transparent; color: white; font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: .9rem 2rem; border-radius: 4px; text-decoration: none; border: 1px solid rgba(255,255,255,0.3); transition: border-color .2s, background .2s; }
+.btn-border:hover { border-color: white; background: rgba(255,255,255,0.08); }
+.hero-image { display: flex; gap: 1rem; animation: slideRight .8s .2s both; }
+.hero-img-card { flex: 1; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 1rem; backdrop-filter: blur(10px); transition: transform .3s; }
+.hero-img-card:hover { transform: translateY(-8px); }
+.hero-img-card:first-child { margin-top: 3rem; }
+.hero-img-card .icon { font-size: 3.5rem; margin-bottom: 1rem; opacity: 0.8; }
+.hero-img-card .label { font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 600; }
+.hero-img-card .name { font-family: 'Playfair Display', serif; font-size: 1rem; color: white; margin-top: .3rem; }
+
+.stats-bar { background: var(--blue); padding: 2rem; }
+.stats-inner { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; }
+.stat { color: white; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; line-height: 1; }
+.stat-label { font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; opacity: 0.7; margin-top: .3rem; font-weight: 500; }
+
+.section { padding: 6rem 2rem; }
+.section-inner { max-width: 1300px; margin: 0 auto; }
+.section-head { text-align: center; margin-bottom: 4rem; }
+.section-tag { display: inline-block; background: var(--blue-light); color: var(--blue); font-size: .68rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; padding: .35rem 1rem; border-radius: 100px; margin-bottom: 1rem; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--dark); line-height: 1.15; }
+.section-title em { font-style: italic; color: var(--blue); }
+.section-line { width: 50px; height: 3px; background: var(--blue); margin: 1.2rem auto 0; border-radius: 2px; }
+
+.cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; }
+.cat-card { border-radius: 12px; overflow: hidden; background: var(--white); border: 1px solid var(--border); transition: transform .3s, box-shadow .3s, border-color .3s; text-decoration: none; color: inherit; display: block; }
+.cat-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(33,82,204,0.15); border-color: var(--blue); }
+.cat-img { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; transition: transform .4s; overflow: hidden; }
+.cat-card:nth-child(1) .cat-img { background: linear-gradient(135deg, #e8eefa, #c5d3f5); }
+.cat-card:nth-child(2) .cat-img { background: linear-gradient(135deg, #eaf0fb, #bfcef2); }
+.cat-card:nth-child(3) .cat-img { background: linear-gradient(135deg, #dce8f8, #b5c8ef); }
+.cat-card:nth-child(4) .cat-img { background: linear-gradient(135deg, #e0eaf7, #b8cbed); }
+.cat-card:nth-child(5) .cat-img { background: linear-gradient(135deg, #d8e5f6, #acc3eb); }
+.cat-card:hover .cat-img { transform: scale(1.08); }
+.cat-body { padding: 1.2rem; text-align: center; }
+.cat-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: .2rem; }
+.cat-count { font-size: .75rem; color: var(--gray); font-weight: 500; }
+
+.bg-light { background: var(--light-gray); }
+.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.product-card { background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); transition: transform .3s, box-shadow .3s; }
+.product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(33,82,204,0.12); }
+.product-img { height: 220px; display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; overflow: hidden; }
+.product-card:nth-child(1) .product-img { background: linear-gradient(145deg, #dce8f8, #b5c8ef); }
+.product-card:nth-child(2) .product-img { background: linear-gradient(145deg, #e8eefa, #c5d3f5); }
+.product-card:nth-child(3) .product-img { background: linear-gradient(145deg, #eaf0fb, #bfcef2); }
+.product-card:nth-child(4) .product-img { background: linear-gradient(145deg, #d8e5f6, #acc3eb); }
+.product-card:nth-child(5) .product-img { background: linear-gradient(145deg, #e0eaf7, #b8cbed); }
+.product-card:nth-child(6) .product-img { background: linear-gradient(145deg, #dce8f8, #b5c8ef); }
+.product-card:nth-child(7) .product-img { background: linear-gradient(145deg, #e8eefa, #c5d3f5); }
+.product-card:nth-child(8) .product-img { background: linear-gradient(145deg, #eaf0fb, #bfcef2); }
+.product-tag { position: absolute; top: 1rem; left: 1rem; background: var(--blue); color: white; font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .25rem .7rem; border-radius: 100px; }
+.product-tag.new-tag { background: #16a34a; }
+.product-body { padding: 1.2rem; }
+.product-cat { font-size: .68rem; color: var(--blue); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .3rem; }
+.product-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: .8rem; }
+.product-footer { display: flex; align-items: center; justify-content: space-between; }
+.product-price { font-size: 1rem; font-weight: 700; color: var(--blue); }
+.add-btn { background: var(--blue-light); color: var(--blue); border: none; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .45rem .9rem; border-radius: 4px; cursor: pointer; transition: background .2s, color .2s; font-family: 'Raleway', sans-serif; }
+.add-btn:hover { background: var(--blue); color: white; }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.about-img-wrap { position: relative; }
+.about-main-img { width: 100%; height: 480px; background: linear-gradient(135deg, var(--blue-light), #c5d3f5); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 6rem; border: 1px solid var(--border); }
+.about-accent { position: absolute; bottom: -1.5rem; right: -1.5rem; background: var(--blue); color: white; padding: 1.5rem 2rem; border-radius: 12px; text-align: center; box-shadow: 0 8px 30px rgba(33,82,204,0.3); }
+.about-accent .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; line-height: 1; }
+.about-accent .lbl { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; opacity: 0.8; margin-top: .3rem; }
+.about-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--dark); line-height: 1.15; margin-bottom: 1.5rem; }
+.about-text h2 em { font-style: italic; color: var(--blue); }
+.about-text p { color: var(--gray); font-size: .95rem; line-height: 1.9; margin-bottom: 1.2rem; }
+.about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+.af { display: flex; align-items: flex-start; gap: .8rem; padding: 1rem; background: var(--blue-light); border-radius: 8px; border: 1px solid var(--border); }
+.af-icon { font-size: 1.4rem; flex-shrink: 0; }
+.af-text h4 { font-size: .85rem; font-weight: 700; color: var(--dark); margin-bottom: .2rem; }
+.af-text p { font-size: .78rem; color: var(--gray); line-height: 1.5; margin: 0; }
+
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.service-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; transition: transform .3s, box-shadow .3s, border-color .3s; }
+.service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(33,82,204,0.12); border-color: var(--blue); }
+.service-icon { width: 64px; height: 64px; background: var(--blue-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 1.5rem; transition: background .3s; }
+.service-card:hover .service-icon { background: var(--blue); }
+.service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: .7rem; color: var(--dark); }
+.service-card p { font-size: .87rem; color: var(--gray); line-height: 1.75; }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+.contact-info h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--dark); }
+.contact-info p { color: var(--gray); font-size: .9rem; line-height: 1.8; margin-bottom: 2rem; }
+.contact-items { display: flex; flex-direction: column; gap: 1rem; }
+.ci { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: var(--blue-light); border-radius: 8px; border: 1px solid var(--border); text-decoration: none; color: var(--dark); transition: border-color .25s, background .25s; }
+.ci:hover { border-color: var(--blue); background: #dce8f8; }
+.ci-icon { width: 40px; height: 40px; background: var(--blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.ci-label { font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gray); font-weight: 600; }
+.ci-value { font-size: .9rem; font-weight: 600; color: var(--dark); margin-top: .15rem; }
+.contact-form-box { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; }
+.contact-form-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--dark); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+.form-group label { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gray); }
+.form-group input, .form-group textarea, .form-group select { padding: .8rem 1rem; border: 1.5px solid var(--border); border-radius: 6px; font-family: 'Raleway', sans-serif; font-size: .9rem; color: var(--dark); background: var(--cream); outline: none; transition: border-color .25s, box-shadow .25s; width: 100%; }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(33,82,204,0.1); }
+.form-group textarea { resize: vertical; min-height: 110px; }
+.btn-submit { width: 100%; background: var(--blue); color: white; border: none; padding: 1rem; font-family: 'Raleway', sans-serif; font-size: .82rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: background .25s, transform .2s; }
+.btn-submit:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+footer { background: var(--dark); padding: 5rem 2rem 2rem; }
+.footer-inner { max-width: 1300px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 2rem; }
+.footer-brand p { color: rgba(255,255,255,0.4); font-size: .85rem; line-height: 1.8; margin-top: 1rem; font-weight: 300; }
+.footer-col h4 { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 1.2rem; }
+.footer-col a { display: block; color: rgba(255,255,255,0.45); text-decoration: none; font-size: .85rem; margin-bottom: .65rem; font-weight: 400; transition: color .25s; }
+.footer-col a:hover { color: white; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { color: rgba(255,255,255,0.25); font-size: .78rem; }
+.footer-bottom a { color: var(--blue); text-decoration: none; }
+
+#toast { display: none; position: fixed; bottom: 2rem; right: 2rem; background: var(--blue); color: white; padding: 1rem 1.5rem; border-radius: 8px; font-size: .85rem; font-weight: 600; box-shadow: 0 8px 30px rgba(33,82,204,0.3); z-index: 9999; }
+
+@keyframes slideLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+
+@media (max-width: 1024px) {
+  .cat-grid { grid-template-columns: repeat(3, 1fr); }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; flex-direction: column; position: fixed; inset: 0; background: white; justify-content: center; align-items: center; gap: 1.5rem; z-index: 999; }
+  .nav-links.open { display: flex; }
+  .nav-actions .nav-btn { display: none; }
+  .burger { display: flex; }
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-image { display: none; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .about-features { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+  .form-row { grid-template-columns: 1fr; }
+  .section { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">✦ Free Shipping on Orders Over KSh 5,000 · Managed by The Saitotis ✦</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <span class="logo-main">Lem<span>az</span></span>
+      <span class="logo-sub">Boutique · Kitengela</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#contact" class="nav-btn">Book Appointment</a>
+      <div class="burger" id="burger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge"><span class="dot"></span> Managed by The Saitotis · Est. 2024</div>
+      <h1>Fashion That<br>Defines <em>You</em></h1>
+      <p class="hero-desc">Discover Lemaz Boutique — your destination for curated luxury fashion in Kitengela, Kajiado. From timeless women's wear to refined men's style, accessories, shoes, and kids' collections.</p>
+      <div class="hero-btns">
+        <a href="#collections" class="btn-white">Shop Collections</a>
+        <a href="#about" class="btn-border">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-img-card"><div class="icon">👗</div><div class="label">New In</div><div class="name">Women's</div></div>
+      <div class="hero-img-card"><div class="icon">🤵</div><div class="label">Collection</div><div class="name">Men's</div></div>
+      <div class="hero-img-card"><div class="icon">👠</div><div class="label">Premium</div><div class="name">Shoes</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Curated Pieces</div></div>
+    <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Client Rating</div></div>
+    <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Years of Style</div></div>
+    <div class="stat"><div class="stat-num">1K+</div><div class="stat-label">Happy Clients</div></div>
+  </div>
+</div>
+
+<section class="section" id="collections">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">Our Collections</div>
+      <h2 class="section-title">Shop by <em>Category</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="cat-grid">
+      <a href="#contact" class="cat-card"><div class="cat-img">👗</div><div class="cat-body"><div class="cat-name">Women's Fashion</div><div class="cat-count">120+ Styles</div></div></a>
+      <a href="#contact" class="cat-card"><div class="cat-img">🤵</div><div class="cat-body"><div class="cat-name">Men's Fashion</div><div class="cat-count">80+ Styles</div></div></a>
+      <a href="#contact" class="cat-card"><div class="cat-img">👠</div><div class="cat-body"><div class="cat-name">Shoes</div><div class="cat-count">60+ Pairs</div></div></a>
+      <a href="#contact" class="cat-card"><div class="cat-img">💍</div><div class="cat-body"><div class="cat-name">Accessories</div><div class="cat-count">150+ Items</div></div></a>
+      <a href="#contact" class="cat-card"><div class="cat-img">🧒</div><div class="cat-body"><div class="cat-name">Kids' Wear</div><div class="cat-count">90+ Styles</div></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-light">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">Featured</div>
+      <h2 class="section-title">New <em>Arrivals</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="products-grid">
+      <div class="product-card"><div class="product-img">👗<span class="product-tag new-tag">New</span></div><div class="product-body"><div class="product-cat">Women's</div><div class="product-name">Silk Evening Dress</div><div class="product-footer"><span class="product-price">KSh 8,500</span><button class="add-btn" onclick="notify()">Enquire</button></div></div></div>
+      <div class="product-card"><div class="product-img">🤵<span class="product-tag">Hot</span></div><div class="product-body"><div class="product-cat">Men's</div><div class="product-name">Classic Blazer Set</div><div class="product-footer"><span class="product-price">KSh 12,000</span><button class="add-btn" onclick="notify()">Enquire</button></div></div></div>
+      <div class="product-card"><div class="product-img">👠<span class="product-tag new-tag">New</span></div><div class="product-body"><div class="product-cat">Shoes</div><div class="product-name">Italian Heeled Pumps</div><div class="product-footer"><span class="product-price">KSh 6,200</span><button class="add-btn" onclick="notify()">Enquire</button></div></div></div>
+      <div class="product-card"><div class="product-img">💍</div><div class="product-body"><div class="product-cat">Accessories</div><div class="product-name">Pearl Drop Earrings</div><div class="product-footer"><span class="product-price">KSh 2,800</span><button class="add-btn" onclick="notify()">Enquire</button></div></div></div>
+      <div class="product-card"><div class="product-img">🧒<span class="product-tag new-tag">New</span></div><div class="product-body"><div class="product-cat">Kids'</div><div class="product-name">Floral Summer Set</div><div class="product-footer"><span class="product-price">KSh 3,500</span><button class="add-btn" onclick="notify()">Enquire</button></div></div></div>
+      <div class="product-card"><div class="product-img">👜</div><div class="product-body"><div class="product-cat">Accessories</div><div class="product-name">Structured Tote Bag</div><div class="product-footer"><span class="product-price">KSh 7,200</span><button class="add-btn" onclick="notify()">Enquire</button></div></div></div>
+      <div class="product-card"><div class="product-img">👔<span class="product-tag">Hot</span></div><div class="product-body"><div class="product-cat">Men's</div><div class="product-name">Linen Summer Shirt</div><div class="product-footer"><span class="product-price">KSh 4,500</span><button class="add-btn" onclick="notify()">Enquire</button></div></div></div>
+      <div class="product-card"><div class="product-img">👗<span class="product-tag new-tag">New</span></div><div class="product-body"><div class="product-cat">Women's</div><div class="product-name">Wrap Midi Dress</div><div class="product-footer"><span class="product-price">KSh 5,800</span><button class="add-btn" onclick="notify()">Enquire</button></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <div class="about-main-img">🛍️</div>
+        <div class="about-accent"><div class="num">3+</div><div class="lbl">Years of Elegance</div></div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag">Our Story</div>
+        <h2>Passion for <em>Fashion</em>,<br>Heart for People</h2>
+        <p>Lemaz Boutique was born from a deep love of style and a desire to bring luxury fashion to every wardrobe. Managed by the Saitotis, we carefully curate only the finest pieces — each chosen with care, elegance, and our clients in mind.</p>
+        <p>From beautiful women's and men's collections to exquisite accessories and adorable kids' wear, every item tells a story of craftsmanship and refinement.</p>
+        <div class="about-features">
+          <div class="af"><span class="af-icon">✦</span><div class="af-text"><h4>Personal Styling</h4><p>Expert advice tailored just for you</p></div></div>
+          <div class="af"><span class="af-icon">🚚</span><div class="af-text"><h4>Fast Delivery</h4><p>Quick & safe to your doorstep</p></div></div>
+          <div class="af"><span class="af-icon">♻️</span><div class="af-text"><h4>Easy Returns</h4><p>Hassle-free return policy</p></div></div>
+          <div class="af"><span class="af-icon">🎁</span><div class="af-text"><h4>Gift Wrapping</h4><p>Luxury packaging for every order</p></div></div>
+        </div>
+        <a href="#contact" class="nav-btn" style="display:inline-block; margin-top:1rem;">Visit Us Today</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-light" id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title">The Lemaz <em>Experience</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-icon">✦</div><h3>Personal Styling</h3><p>Our stylists help you find the perfect look tailored to your body, style, and occasion.</p></div>
+      <div class="service-card"><div class="service-icon">🚚</div><h3>Fast Delivery</h3><p>We deliver your purchases quickly and safely with premium packaging right to your door.</p></div>
+      <div class="service-card"><div class="service-icon">♻️</div><h3>Easy Returns</h3><p>Not satisfied? Our hassle-free return policy means your happiness always comes first.</p></div>
+      <div class="service-card"><div class="service-icon">🎁</div><h3>Gift Wrapping</h3><p>Make every purchase special with our luxury gift wrapping — perfect for any occasion.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title">Visit Us or <em>Reach Out</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>We'd love to hear from you</h3>
+        <p>Book a personal styling appointment, ask about a specific piece, or simply come say hello at Lemaz Boutique in Kitengela.</p>
+        <div class="contact-items">
+          <a href="tel:+254700000000" class="ci"><div class="ci-icon">📞</div><div><div class="ci-label">Phone</div><div class="ci-value">+254 700 000 000</div></div></a>
+          <a href="mailto:hello@lemazboutique.com" class="ci"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-value">hello@lemazboutique.com</div></div></a>
+          <a href="#" class="ci"><div class="ci-icon">📍</div><div><div class="ci-label">Location</div><div class="ci-value">Kitengela, Kajiado</div></div></a>
+          <a href="#" class="ci"><div class="ci-icon">🕐</div><div><div class="ci-label">Hours</div><div class="ci-value">Mon–Sat: 9am – 7pm</div></div></a>
+        </div>
+      </div>
+      <div class="contact-form-box">
+        <h3>Send us a Message</h3>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="Jane"></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+          </div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="jane@email.com"></div>
+          <div class="form-group"><label>Interested In</label>
+            <select>
+              <option value="">Select a category</option>
+              <option>Women's Fashion</option><option>Men's Fashion</option>
+              <option>Shoes</option><option>Accessories</option>
+              <option>Kids' Wear</option><option>Personal Styling Session</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell us how we can help..."></textarea></div>
+          <button type="submit" class="btn-submit">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; color:white; letter-spacing:.05em;">Lem<span style="color:var(--blue)">az</span></div>
+        <div style="font-size:.58rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(255,255,255,0.35); font-weight:600;">Boutique · Managed by The Saitotis</div>
+        <p>Your destination for curated luxury fashion in Kitengela, Kajiado. Style that tells your story.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <a href="#collections">Women's Fashion</a>
+        <a href="#collections">Men's Fashion</a>
+        <a href="#collections">Shoes</a>
+        <a href="#collections">Accessories</a>
+        <a href="#collections">Kids' Wear</a>
+      </div>
+      <div class="footer-col">
+        <h4>Boutique</h4>
+        <a href="#about">Our Story</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact">Book Appointment</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+254700000000">+254 700 000 000</a>
+        <a href="mailto:hello@lemazboutique.com">hello@lemazboutique.com</a>
+        <a href="#">Kitengela, Kajiado</a>
+        <a href="#">Mon–Sat: 9am–7pm</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Lemaz Boutique. All rights reserved.</p>
+      <p>Crafted with ♥ by <a href="#">Siato</a></p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast">✓ Enquiry noted! We'll contact you soon.</div>
+
+<script>
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+  function notify() {
+    const t = document.getElementById('toast');
+    t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', 3000);
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-submit');
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#16a34a';
+    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3000);
+  }
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
